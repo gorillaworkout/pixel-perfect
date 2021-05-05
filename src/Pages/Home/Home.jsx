@@ -27,18 +27,57 @@ export default function Home(){
 
     const [allData,setAllData]=useState([])
 
+    const [dataTask1,setDataTask1]=useState([])
+    const [dataTask2,setDataTask2]=useState([])
+    const [dataTask3,setDataTask3]=useState([])
+    const [dataTask4,setDataTask4]=useState([])
+
+    const [editNameTask,setEditNameTask]=useState('')
+    const [editProgress,setEditProgress]=useState(0)
+    const [indexEdit,setIndexEdit]=useState(0)
 
 
     const fetchData=()=>{
         Axios.get(`${API_URL}/all`)
         .then((res)=>{
             console.log(res.data)
-            
             setAllData(res.data)
         }).catch((err)=>{
             console.log(err)
         })
+
+        Axios.get(`${API_URL}/task_1`)
+        .then((res)=>{
+            console.log(res.data, 'task 1')
+            setDataTask1(res.data)
+            console.log(res.data === [])
+        }).catch((err)=>{
+            console.log(err)
+        })
+        Axios.get(`${API_URL}/task_2`)
+        .then((res)=>{
+            console.log(res.data)
+            setDataTask2(res.data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+        Axios.get(`${API_URL}/task_3`)
+        .then((res)=>{
+            console.log(res.data)
+            setDataTask3(res.data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+        Axios.get(`${API_URL}/task_4`)
+        .then((res)=>{
+            console.log(res.data)
+            setDataTask4(res.data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+
         setLoadingFetch(false)
+        
     }
     useEffect(()=>{
         fetchData()
@@ -52,26 +91,166 @@ export default function Home(){
         console.log(nameTask,'ini name task')
         console.log(progressNum,' ini progress Num')
         setModalTambah(false)
+        const obj = {
+            "group_task":indexTask,
+            "taskName":nameTask,
+            "progress":progressNum
+        }
+
+        if(indexTask === 1){
+            Axios.post(`${API_URL}/task_1`,obj)
+            .then((res)=>{
+                Axios.get(`${API_URL}/task_1`)
+                .then((res)=>{
+                    setDataTask1(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                console.log(res.data)
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }else if (indexTask === 2){
+            Axios.post(`${API_URL}/task_2`,obj)
+            .then((res)=>{
+                Axios.get(`${API_URL}/task_2`)
+                .then((res)=>{
+                    setDataTask2(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                console.log(res.data)
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }else if (indexTask === 3){
+            Axios.post(`${API_URL}/task_3`,obj)
+            .then((res)=>{
+                Axios.get(`${API_URL}/task_3`)
+                .then((res)=>{
+                    setDataTask3(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                console.log(res.data)
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }else {
+            Axios.post(`${API_URL}/task_4`,obj)
+            .then((res)=>{
+                Axios.get(`${API_URL}/task_4`)
+                .then((res)=>{
+                    setDataTask4(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                console.log(res.data)
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }
+
+
     } 
     const onSaveEdit=()=>{
         console.log('active')
+        const data ={
+            taskName:editNameTask,
+            progress:editProgress
+        }
+
+        if(indexTask === 1){
+            Axios.patch(`${API_URL}/task_1/${indexEdit}`,data)
+            .then((res)=>{
+                Axios.get(`${API_URL}/task_1`)
+                .then((res)=>{
+                    setDataTask1(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }else if (indexTask === 2){
+            Axios.patch(`${API_URL}/task_2/${indexEdit}`,{
+                "taskName":editNameTask,
+                "progress":editProgress
+            })
+            .then((res)=>{
+                Axios.get(`${API_URL}/task_2`)
+                .then((res)=>{
+                    setDataTask2(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            }).catch((err)=>{
+                console.log(err)
+            })
+            
+        }else if (indexTask === 3){
+            Axios.patch(`${API_URL}/task_3/${indexEdit}`,{
+                "taskName":editNameTask,
+                "progress":editProgress
+            })
+            .then((res)=>{
+                Axios.get(`${API_URL}/task_3`)
+                .then((res)=>{
+                    setDataTask1(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            }).catch((err)=>{
+                console.log(err)
+            })
+
+        }else {
+            Axios.patch(`${API_URL}/task_4/${indexEdit}`,{
+                "taskName":editNameTask,
+                "progress":editProgress
+            })
+            .then((res)=>{
+                Axios.get(`${API_URL}/task_4`)
+                .then((res)=>{
+                    setDataTask1(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }
+        setEditTask(false)
     }
 
     const createTask=(id)=>{
+        console.log(id,' ini id 158')
         setModalTambah(true)
         setIndexTask(id)
     }
-    const editTaskFunc=(id)=>{
+    const editTaskFunc=(id,index)=>{
         console.log(id)
+        console.log(index)
+        setIndexEdit(index)
+        setIndexTask(id)
         setEditTask(true)
     }
     const deleteTaskFunc=(id)=>{
         console.log(id)
+        setIndexTask(id)
         setDeleteTask(true)
     }
 
     const onDeleteEdit=()=>{
         console.log('delete berhasil')
+        console.log(indexTask)
+        if(indexTask === 1 ){
+            console.log('line 174')
+            dataTask1.splice(indexTask,1)
+            console.log(dataTask1)
+            setDeleteTask(false)
+        }
+
     }
 
     const onTaskName=(taskName)=>{
@@ -87,9 +266,11 @@ export default function Home(){
 
     const onEditTask=(taskName)=>{
         console.log(taskName)
+        setEditNameTask(taskName)
     }
     const onEditProgress=(progress)=>{
         console.log(progress)
+        setEditProgress(progress)
     }
 
     
@@ -97,14 +278,285 @@ export default function Home(){
     const toggleEdit=()=>setEditTask(false)
     const toggleDelete=()=>setDeleteTask(false)
 
+    const moveRight=(id,index)=>{
+        console.log(id)
+        console.log(index, ' ini index')
+        if(id === 1){
+            Axios.get(`${API_URL}/task_1?id=${index}`)
+            .then((res)=>{
+                console.log(res.data[0])
+                const obj = {
+                    "group_task":res.data[0].group_task,
+                    "taskName":res.data[0].taskName,
+                    "progress":res.data[0].progress
+                }
 
+                Axios.post(`${API_URL}/task_2`, obj)
+                .then((res)=>{
+                    Axios.get(`${API_URL}/task_2`)
+                    .then((res)=>{
+                        setDataTask2(res.data)
+                    }).catch((err)=>{
+                        console.log(err)
+                    })
+                })
+            }).catch((err)=>{
+                console.log(err)
+            })
+            Axios.delete(`${API_URL}/task_1/${index}`)
+            .then((res)=>{
+                console.log(res.data)
+                Axios.get(`${API_URL}/task_1`)
+                .then((res)=>{
+                    setDataTask1(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                // setDataTask1(res.data)
+            })
+        }else if (id === 2){
+            Axios.get(`${API_URL}/task_2?id=${index}`)
+            .then((res)=>{
+                console.log(res.data[0])
+                const obj = {
+                    "group_task":res.data[0].group_task,
+                    "taskName":res.data[0].taskName,
+                    "progress":res.data[0].progress
+                }
+
+                Axios.post(`${API_URL}/task_3`, obj)
+                .then((res)=>{
+                    Axios.get(`${API_URL}/task_3`)
+                    .then((res)=>{
+                        setDataTask3(res.data)
+                    }).catch((err)=>{
+                        console.log(err)
+                    })
+                })
+            }).catch((err)=>{
+                console.log(err)
+            })
+            Axios.delete(`${API_URL}/task_2/${index}`)
+            .then((res)=>{
+                console.log(res.data)
+                Axios.get(`${API_URL}/task_2`)
+                .then((res)=>{
+                    setDataTask2(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                // setDataTask1(res.data)
+            })
+
+        }else if (id === 3){
+            Axios.get(`${API_URL}/task_3?id=${index}`)
+            .then((res)=>{
+                console.log(res.data[0])
+                const obj = {
+                    "group_task":res.data[0].group_task,
+                    "taskName":res.data[0].taskName,
+                    "progress":res.data[0].progress
+                }
+
+                Axios.post(`${API_URL}/task_4`, obj)
+                .then((res)=>{
+                    Axios.get(`${API_URL}/task_4`)
+                    .then((res)=>{
+                        setDataTask4(res.data)
+                    }).catch((err)=>{
+                        console.log(err)
+                    })
+                })
+            }).catch((err)=>{
+                console.log(err)
+            })
+            Axios.delete(`${API_URL}/task_3/${index}`)
+            .then((res)=>{
+                console.log(res.data)
+                Axios.get(`${API_URL}/task_3`)
+                .then((res)=>{
+                    setDataTask3(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                // setDataTask1(res.data)
+            })
+        }
+    }
+
+
+    const moveLeft=(id,index)=>{
+        if(id === 2){
+            Axios.get(`${API_URL}/task_2?id=${index}`)
+            .then((res)=>{
+                console.log(res.data[0])
+                const obj = {
+                    "group_task":res.data[0].group_task,
+                    "taskName":res.data[0].taskName,
+                    "progress":res.data[0].progress
+                }
+
+                Axios.post(`${API_URL}/task_1`, obj)
+                .then((res)=>{
+                    Axios.get(`${API_URL}/task_1`)
+                    .then((res)=>{
+                        setDataTask1(res.data)
+                    }).catch((err)=>{
+                        console.log(err)
+                    })
+                })
+            }).catch((err)=>{
+                console.log(err)
+            })
+            Axios.delete(`${API_URL}/task_2/${index}`)
+            .then((res)=>{
+                console.log(res.data)
+                Axios.get(`${API_URL}/task_2`)
+                .then((res)=>{
+                    setDataTask2(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                // setDataTask1(res.data)
+            })
+        }else if (id === 3){
+            Axios.get(`${API_URL}/task_3?id=${index}`)
+            .then((res)=>{
+                console.log(res.data[0])
+                const obj = {
+                    "group_task":res.data[0].group_task,
+                    "taskName":res.data[0].taskName,
+                    "progress":res.data[0].progress
+                }
+
+                Axios.post(`${API_URL}/task_2`, obj)
+                .then((res)=>{
+                    Axios.get(`${API_URL}/task_2`)
+                    .then((res)=>{
+                        setDataTask2(res.data)
+                    }).catch((err)=>{
+                        console.log(err)
+                    })
+                })
+            }).catch((err)=>{
+                console.log(err)
+            })
+            Axios.delete(`${API_URL}/task_3/${index}`)
+            .then((res)=>{
+                console.log(res.data)
+                Axios.get(`${API_URL}/task_3`)
+                .then((res)=>{
+                    setDataTask3(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                // setDataTask1(res.data)
+            })
+
+        }else if (id === 4){
+            Axios.get(`${API_URL}/task_4?id=${index}`)
+            .then((res)=>{
+                console.log(res.data[0])
+                const obj = {
+                    "group_task":res.data[0].group_task,
+                    "taskName":res.data[0].taskName,
+                    "progress":res.data[0].progress
+                }
+
+                Axios.post(`${API_URL}/task_3`, obj)
+                .then((res)=>{
+                    Axios.get(`${API_URL}/task_3`)
+                    .then((res)=>{
+                        setDataTask3(res.data)
+                    }).catch((err)=>{
+                        console.log(err)
+                    })
+                })
+            }).catch((err)=>{
+                console.log(err)
+            })
+            Axios.delete(`${API_URL}/task_4/${index}`)
+            .then((res)=>{
+                console.log(res.data)
+                Axios.get(`${API_URL}/task_4`)
+                .then((res)=>{
+                    setDataTask4(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                // setDataTask1(res.data)
+            })
+        }
+    }
 
     const renderItem=()=>{
-        const dataRender = allData
+        const dataRender = dataTask1
 
         return dataRender.map((val,index)=>{
-            console.log(val.group_task === 1) 
-            if(val.group_task === 1){
+                return (
+                <div className="main-task" key={index}>
+                <p id="name-item">{val.taskName}</p>
+                <div className="task-option">
+                    <div className="option-left">
+                        <div className="prog-bar">
+
+                            <ProgressBar now={val.progress} />
+                            {
+                                val.progress === 100?
+                                <AiFillCheckCircle id="icon"/>
+                                :
+                                <p>{val.progress}%</p>
+                            }
+                        </div>
+                    </div>
+                    
+                    <Popup
+                        trigger={
+                        <ButtonSemantic>
+                            <BsThreeDots id="icon-2"/>
+                        </ButtonSemantic>
+                        
+                        }
+                        flowing hoverable>
+                        <Grid centered divided columns={1} className="grid-modal">
+                            <Grid.Row className="grid-row-mod"onClick={()=>moveRight(1,val.id)} >
+                                <div className="row-mod-1">
+                                    <AiOutlineArrowRight className="icon-mod"/>
+                                </div>
+                                <div className="row-mod-2">
+                                    <p>Move Right</p>
+                                </div>
+                            </Grid.Row>
+                            <Grid.Row className="grid-row-mod">
+                            <div className="row-mod-1">
+                                <AiOutlineEdit className="icon-mod"/>
+                            </div>
+                            <div className="row-mod-2" onClick={()=>editTaskFunc(1,index+1)}>
+                                <p>Edit</p>                                       
+                            </div>
+                            </Grid.Row>
+                            <Grid.Row className="grid-row-mod">
+                            <div className="row-mod-1">
+                                <AiOutlineDelete className="icon-mod"/>
+                            </div>
+                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(1)}>
+                                <p>Delete</p>
+                            </div>
+                            </Grid.Row>
+                        </Grid>
+                        </Popup>        
+                </div>
+            </div>
+            )
+           
+        })
+
+    }
+
+    const renderItem2=()=>{
+        const dataRender = dataTask2
+        return dataRender.map((val,index)=>{
+            console.log(val.group_task === 3) 
                 return (
                 <div className="main-task">
                 <p id="name-item">{val.taskName}</p>
@@ -131,7 +583,86 @@ export default function Home(){
                         }
                         flowing hoverable>
                         <Grid centered divided columns={1} className="grid-modal">
+                            <Grid.Row className="grid-row-mod" onClick={()=>moveLeft(2,val.id)}>
+                                <div className="row-mod-1">
+                                    <AiOutlineArrowLeft className="icon-mod"/>
+                                </div>
+                                <div className="row-mod-2">
+                                    <p>Move Left</p>
+                                </div>
+                            </Grid.Row>
+                            <Grid.Row className="grid-row-mod" onClick={()=>moveRight(2,val.id)}>
+                                <div className="row-mod-1">
+                                    <AiOutlineArrowRight className="icon-mod"  />
+                                </div>
+                                <div className="row-mod-2">
+                                    <p>Move Right</p>
+                                </div>
+                            </Grid.Row>
                             <Grid.Row className="grid-row-mod">
+                            <div className="row-mod-1">
+                                <AiOutlineEdit className="icon-mod"/>
+                            </div>
+                            <div className="row-mod-2" onClick={()=>editTaskFunc(2,index+1)}>
+                                <p>Edit</p>                                       
+                            </div>
+                            </Grid.Row>
+                            <Grid.Row className="grid-row-mod">
+                            <div className="row-mod-1">
+                                <AiOutlineDelete className="icon-mod"/>
+                            </div>
+                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(2)}>
+                                <p>Delete</p>
+                            </div>
+                            </Grid.Row>
+                        </Grid>
+                        </Popup>        
+                </div>
+            </div>
+            )
+            
+      })
+    }
+
+    const renderItem3=()=>{
+        const dataRender = dataTask3
+        return dataRender.map((val,index)=>{
+            console.log(val)    
+                return (
+                <div className="main-task">
+                <p id="name-item">{val.taskName}</p>
+                <div className="task-option">
+                    <div className="option-left">
+                        <div className="prog-bar">
+
+                            <ProgressBar now={val.progress} />
+                            {
+                                val.progress === 100?
+                                <AiFillCheckCircle id="icon"/>
+                                :
+                                <p>{val.progress}%</p>
+                            }
+                        </div>
+                    </div>
+                    
+                    <Popup
+                        trigger={
+                        <ButtonSemantic>
+                            <BsThreeDots id="icon-2"/>
+                        </ButtonSemantic>
+                        
+                        }
+                        flowing hoverable>
+                        <Grid centered divided columns={1} className="grid-modal">
+                        <Grid.Row className="grid-row-mod" onClick={()=>moveLeft(3,val.id)}>
+                                <div className="row-mod-1">
+                                    <AiOutlineArrowLeft className="icon-mod"/>
+                                </div>
+                                <div className="row-mod-2">
+                                    <p>Move Left</p>
+                                </div>
+                            </Grid.Row>
+                            <Grid.Row className="grid-row-mod" onClick={()=>moveRight(3,val.id)}>
                                 <div className="row-mod-1">
                                     <AiOutlineArrowRight className="icon-mod"/>
                                 </div>
@@ -143,7 +674,7 @@ export default function Home(){
                             <div className="row-mod-1">
                                 <AiOutlineEdit className="icon-mod"/>
                             </div>
-                            <div className="row-mod-2" onClick={()=>editTaskFunc(index)}>
+                            <div className="row-mod-2" onClick={()=>editTaskFunc(3,index+1)}>
                                 <p>Edit</p>                                       
                             </div>
                             </Grid.Row>
@@ -151,21 +682,80 @@ export default function Home(){
                             <div className="row-mod-1">
                                 <AiOutlineDelete className="icon-mod"/>
                             </div>
-                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(index)}>
+                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(3)}>
                                 <p>Delete</p>
                             </div>
                             </Grid.Row>
+                        </Grid>
+                        </Popup>        
+                </div>
+            </div>
+            )  
+      })
+    }
 
+    const renderItem4=()=>{
+        const dataRender = dataTask4
+        return dataRender.map((val,index)=>{
+            console.log(val.group_task === 3) 
+                return (
+                <div className="main-task">
+                <p id="name-item">{val.taskName}</p>
+                <div className="task-option">
+                    <div className="option-left">
+                        <div className="prog-bar">
+
+                            <ProgressBar now={val.progress} />
+                            {
+                                val.progress === 100?
+                                <AiFillCheckCircle id="icon"/>
+                                :
+                                <p>{val.progress}%</p>
+                            }
+                        </div>
+                    </div>
+                    
+                    <Popup
+                        trigger={
+                        <ButtonSemantic>
+                            <BsThreeDots id="icon-2"/>
+                        </ButtonSemantic>
+                        
+                        }
+                        flowing hoverable>
+                        <Grid centered divided columns={1} className="grid-modal">
+                            <Grid.Row className="grid-row-mod" onClick={()=>moveLeft(4,val.id)}>
+                                <div className="row-mod-1">
+                                    <AiOutlineArrowLeft className="icon-mod"/>
+                                </div>
+                                <div className="row-mod-2">
+                                    <p>Move Left</p>
+                                </div>
+                            </Grid.Row>
+                            <Grid.Row className="grid-row-mod">
+                            <div className="row-mod-1">
+                                <AiOutlineEdit className="icon-mod"/>
+                            </div>
+                            <div className="row-mod-2" onClick={()=>editTaskFunc(3,index+1)}>
+                                <p>Edit</p>                                       
+                            </div>
+                            </Grid.Row>
+                            <Grid.Row className="grid-row-mod">
+                            <div className="row-mod-1">
+                                <AiOutlineDelete className="icon-mod"/>
+                            </div>
+                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(3)}>
+                                <p>Delete</p>
+                            </div>
+                            </Grid.Row>
                         </Grid>
                         </Popup>        
                 </div>
             </div>
             )
-            }
-        })
-
+            
+      })
     }
-
     if(loadingFetch){
         <p>LOADING</p>
     }
@@ -208,7 +798,7 @@ export default function Home(){
                 </ModalFooter>
             </Modal>
 
-            <Modal isOpen={modalTambah} toggle={toggle} id="modal-box">
+        <Modal isOpen={modalTambah} toggle={toggle} id="modal-box">
                 <ModalHeader toggle={toggle} id="create-task">
                     <p>Create Task</p>
                 </ModalHeader>
@@ -245,64 +835,12 @@ export default function Home(){
                                 <p id="name-1">Group Task 1</p>
                             </div>
                                 <p id="name-2">JANUARY - MARCH</p>
-                                
-                                {renderItem()}
-                            {/* <div className="main-task">
-                                <p id="name-item">Re Designed Your life! no More Pills</p>
-                                <div className="task-option">
-                                    <div className="option-left">
-                                        <div className="prog-bar">
-
-                                            <ProgressBar now={progressBar} />
-                                            {
-                                                progressBar === 100?
-                                                <AiFillCheckCircle id="icon"/>
-                                                :
-                                                <p>{progressBar}%</p>
-                                            }
-                                        </div>
-                                    </div>
-                                    
-                                    <Popup
-                                        trigger={
-                                        <ButtonSemantic>
-                                            <BsThreeDots id="icon-2"/>
-                                        </ButtonSemantic>
-                                        
-                                        }
-                                        flowing hoverable>
-                                            <Grid centered divided columns={1} className="grid-modal">
-                                                <Grid.Row className="grid-row-mod">
-                                                    <div className="row-mod-1">
-                                                        <AiOutlineArrowRight className="icon-mod"/>
-                                                    </div>
-                                                    <div className="row-mod-2">
-                                                        <p>Move Right</p>
-                                                    </div>
-                                                </Grid.Row>
-                                                <Grid.Row className="grid-row-mod">
-                                                <div className="row-mod-1">
-                                                    <AiOutlineEdit className="icon-mod"/>
-                                                </div>
-                                                <div className="row-mod-2" onClick={()=>editTaskFunc(1)}>
-                                                    <p>Edit</p>                                       
-                                                </div>
-                                                </Grid.Row>
-                                                <Grid.Row className="grid-row-mod">
-                                                <div className="row-mod-1">
-                                                    <AiOutlineDelete className="icon-mod"/>
-                                                </div>
-                                                <div className="row-mod-2" onClick={()=>deleteTaskFunc(1)}>
-                                                    <p>Delete</p>
-                                                </div>
-                                                </Grid.Row>
-
-                                            </Grid>
-                                            </Popup>
-                                    
-                                </div>
-                            </div> */}
-                            
+                                {
+                                    dataTask1 ?
+                                    renderItem()
+                                    :
+                                    <input type="text" placeholder=" No Task Available" id="input-task" disabled />
+                                }
                             <div className="main-3" onClick={()=>createTask(1)}>
                                 <GrAddCircle id="icon-2"/>
                                 <p id="new-task">New Task</p>
@@ -314,9 +852,16 @@ export default function Home(){
                                 <p id="name-1">Group Task 2</p>
                             </div>
                                 <p id="name-2">APRIL - JUNE</p>
-                                <input type="text" placeholder=" No Task Available" id="input-task" />
-                            
-                            <div className="main-3">
+                                
+                                {
+                                    dataTask2 ?
+                                    renderItem2()
+                                    :
+                                    <input type="text" placeholder=" No Task Available" id="input-task" disabled />
+                                }
+                                
+
+                            <div className="main-3" onClick={()=>createTask(2)}>
                                 <GrAddCircle id="icon-2"/>
                                 <p id="new-task">New Task</p>
                             </div>
@@ -327,9 +872,15 @@ export default function Home(){
                                 <p id="name-1">Group Task 3</p>
                             </div>
                                 <p id="name-2">JULY - SEPTEMBER</p>
-                                <input type="text" placeholder=" No Task Available" id="input-task"  />
+
+                                {
+                                    dataTask3 ?
+                                    renderItem3()
+                                    :
+                                    <input type="text" placeholder=" No Task Available" id="input-task" disabled />
+                                }
                             
-                            <div className="main-3">
+                            <div className="main-3" onClick={()=>createTask(3)}>
                                 <GrAddCircle id="icon-2"/>
                                 <p id="new-task">New Task</p>
                             </div>
@@ -340,16 +891,19 @@ export default function Home(){
                                 <p id="name-1">Group Task 4</p>
                             </div>
                                 <p id="name-2">OCTOBER - DECEMBER</p>
-                                <input type="text" placeholder=" No Task Available" id="input-task" />
+                                {
+                                    dataTask4?
+                                    renderItem4()
+                                    :
+                                    <input type="text" placeholder=" No Task Available" id="input-task" disabled />
+                                }
                             
-                            <div className="main-3">
+                            <div className="main-3" onClick={()=>createTask(4)}>
                                 <GrAddCircle id="icon-2"/>
                                 <p id="new-task">New Task</p>
                             </div>
                         </div>  
 
-       
-                        {renderItem()}
                     </div>
                 </div>
 
