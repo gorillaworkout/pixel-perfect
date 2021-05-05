@@ -4,6 +4,7 @@ import logo  from './../../Assets/gorillalogo.png'
 import {AiFillCheckCircle,AiOutlineArrowRight,AiOutlineEdit,AiOutlineDelete,AiOutlineArrowLeft} from 'react-icons/ai'
 import {BsThreeDots} from 'react-icons/bs'
 import {GrAddCircle} from 'react-icons/gr'
+import {RiErrorWarningLine} from 'react-icons/ri'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Axios from 'axios'
 import { Button as ButtonSemantic, Popup,Grid } from 'semantic-ui-react'
@@ -12,6 +13,8 @@ export default function Home(){
 
     const [modalTambah,setModalTambah]=useState(false)
     const [editTask,setEditTask]=useState(false)
+    const [deleteTask,setDeleteTask]=useState(false)
+
 
     const [indexTask,setIndexTask]=useState(0)
     const [nameTask,setNameTask]=useState('')
@@ -37,6 +40,14 @@ export default function Home(){
         console.log(id)
         setEditTask(true)
     }
+    const deleteTaskFunc=(id)=>{
+        console.log(id)
+        setDeleteTask(true)
+    }
+
+    const onDeleteEdit=()=>{
+        console.log('delete berhasil')
+    }
 
     const onTaskName=(taskName)=>{
         console.log(taskName)
@@ -59,8 +70,25 @@ export default function Home(){
     
     const toggle=()=>setModalTambah(false)
     const toggleEdit=()=>setEditTask(false)
+    const toggleDelete=()=>setDeleteTask(false)
     return (
         <>
+
+        <Modal isOpen={deleteTask} toggle={toggleDelete} id="modal-box-delete">
+            <ModalHeader toggle={toggleDelete} id="delete-task">
+                <RiErrorWarningLine id="icon-warning"/>
+                <p>Delete Task</p>
+            </ModalHeader>
+            <ModalBody id="delete-body">
+               <p>Are you sure want to delete this task?
+your action can’t be reverted.</p>
+            </ModalBody>
+            <ModalFooter id="footer-delete">
+                <Button color="primary" onClick={toggleDelete}>Cancel</Button>
+                <Button color="primary" onClick={onDeleteEdit}>delete Task</Button>
+            </ModalFooter>
+         </Modal>
+
         <Modal isOpen={editTask} toggle={toggleEdit} id="modal-box">
                 <ModalHeader toggle={toggleEdit} id="create-task">
                     <p>Edit Task</p>
@@ -157,7 +185,7 @@ export default function Home(){
                                                 <div className="row-mod-1">
                                                     <AiOutlineDelete className="icon-mod"/>
                                                 </div>
-                                                <div className="row-mod-2">
+                                                <div className="row-mod-2" onClick={()=>deleteTaskFunc(1)}>
                                                     <p>Delete</p>
                                                 </div>
                                                 </Grid.Row>

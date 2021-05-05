@@ -551,3 +551,78 @@ color: #2F3136;
 .row-mod-2{
     width:70%
 }
+
+#delete-task{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    /* background-color: red; */
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+.modal-title{
+    width:100%;
+    display: flex;
+    flex-direction: row;
+}
+#icon-warning{
+    color: #FAAD14;
+    /* width:50%; */
+}
+#delete-task p{
+    width:100px;
+}
+#delete-task #icon-warning{
+    width:10%;
+    font-size: 25px;
+}
+#delete-task p{
+    width:70%;
+    font-weight: 700;
+}
+#modal-box-delete .modal-content{
+    width:400px;
+    height:188px;
+    padding: 32px 32px 24px;
+
+    
+}
+
+#footer-delete Button {
+    position: relative;
+    top:-20px;
+}
+
+#footer-delete Button:nth-child(2){
+    background-color: #EB5757;
+    border-color:transparent;
+
+
+}
+
+#delete-body p{
+    width:50%;
+    font-family: Rubik;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 22px;
+position: relative;
+top:-30px;
+left:47px;
+/* or 157% */
+
+
+/* Gray / gray-9 */
+
+color: #262626;
+
+
+/* Inside Auto Layout */
+
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+margin: 8px 0px;
+}
