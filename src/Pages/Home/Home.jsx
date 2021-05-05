@@ -8,7 +8,8 @@ import {RiErrorWarningLine} from 'react-icons/ri'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Axios from 'axios'
 import { Button as ButtonSemantic, Popup,Grid } from 'semantic-ui-react'
-
+import ProgressBar from 'react-bootstrap/ProgressBar'
+import {apiUrl} from '../../Helpers/apiUrl'
 export default function Home(){
 
     const [modalTambah,setModalTambah]=useState(false)
@@ -19,6 +20,8 @@ export default function Home(){
     const [indexTask,setIndexTask]=useState(0)
     const [nameTask,setNameTask]=useState('')
     const [progressNum,setProgressNum]=useState(0)
+
+    const [progressBar,setProgressBar]=useState(90)
 
 
     const onSave=()=>{
@@ -81,7 +84,7 @@ export default function Home(){
             </ModalHeader>
             <ModalBody id="delete-body">
                <p>Are you sure want to delete this task?
-your action can’t be reverted.</p>
+                    your action can’t be reverted.</p>
             </ModalBody>
             <ModalFooter id="footer-delete">
                 <Button color="primary" onClick={toggleDelete}>Cancel</Button>
@@ -100,7 +103,7 @@ your action can’t be reverted.</p>
                     </div>
                     <div className="body-progress">
                         <p id="body-task-name">Progress</p>
-                        <input type="number" placeholder="0%" id="input-modal-progress"onChange={(e)=>onEditProgress(e.target.value)} />
+                        <input type="number" placeholder="0%" id="input-modal-progress"onChange={(e)=>onEditProgress(e.target.value)} max={100} maxLength={3}/>
                     </div>
                 </ModalBody>
                 <ModalFooter>
@@ -146,16 +149,24 @@ your action can’t be reverted.</p>
                                 <p id="name-1">Group Task 1</p>
                             </div>
                                 <p id="name-2">JANUARY - MARCH</p>
+                                
 
                             <div className="main-task">
                                 <p id="name-item">Re Designed Your life! no More Pills</p>
                                 <div className="task-option">
                                     <div className="option-left">
-                                        <div id="loading">
+                                        <div className="prog-bar">
 
+                                            <ProgressBar now={progressBar} />
+                                            {
+                                                progressBar === 100?
+                                                <AiFillCheckCircle id="icon"/>
+                                                :
+                                                <p>{progressBar}%</p>
+                                            }
                                         </div>
-                                        <AiFillCheckCircle id="icon"/>
                                     </div>
+                                    
                                     <Popup
                                         trigger={
                                         <ButtonSemantic>
@@ -220,7 +231,7 @@ your action can’t be reverted.</p>
                                 <p id="name-1">Group Task 3</p>
                             </div>
                                 <p id="name-2">JULY - SEPTEMBER</p>
-                                <input type="text" placeholder=" No Task Available" id="input-task" />
+                                <input type="text" placeholder=" No Task Available" id="input-task"  />
                             
                             <div className="main-3">
                                 <GrAddCircle id="icon-2"/>

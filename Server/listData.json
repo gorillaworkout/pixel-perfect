@@ -1,0 +1,86 @@
+{
+  "task-1": [
+    {
+      "id":1,
+      "taskName":"Re Design your life",
+      "progress":80
+    },
+    {
+      "id":2,
+      "taskName":"changes your life",
+      "progress":90
+    }
+  ],
+  "task-2": [
+    {
+      "id":1,
+      "taskName":"Re Design your",
+      "progress":80
+    },
+    {
+      "id":2,
+      "taskName":"changes your life",
+      "progress":90
+    }
+  ],
+  "task-3": [
+    {
+      "id":1,
+      "taskName":"Re Design  life",
+      "progress":40
+    },
+    {
+      "id":2,
+      "taskName":"changes  life",
+      "progress":90
+    }
+  ],
+  "task-4": [
+   
+  ],
+
+  "all":[
+   {
+    "task-1": [
+      {
+        "id":1,
+        "taskName":"Re Design your life",
+        "progress":80
+      },
+      {
+        "id":2,
+        "taskName":"changes your life",
+        "progress":90
+      }
+    ],
+    "task-2": [
+      {
+        "id":1,
+        "taskName":"Re Design your",
+        "progress":80
+      },
+      {
+        "id":2,
+        "taskName":"changes your life",
+        "progress":90
+      }
+    ],
+    "task-3": [
+      {
+        "id":1,
+        "taskName":"Re Design  life",
+        "progress":40
+      },
+      {
+        "id":2,
+        "taskName":"changes  life",
+        "progress":90
+      }
+    ],
+    "task-4": [
+     
+    ]
+   }
+  ]
+  
+}
