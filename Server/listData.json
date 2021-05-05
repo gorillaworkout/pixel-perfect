@@ -1,5 +1,5 @@
 {
-  "task-1": [
+  "task_1": [
     {
       "id":1,
       "taskName":"Re Design your life",
@@ -11,7 +11,7 @@
       "progress":90
     }
   ],
-  "task-2": [
+  "task_2": [
     {
       "id":1,
       "taskName":"Re Design your",
@@ -23,7 +23,7 @@
       "progress":90
     }
   ],
-  "task-3": [
+  "task_3": [
     {
       "id":1,
       "taskName":"Re Design  life",
@@ -35,52 +35,41 @@
       "progress":90
     }
   ],
-  "task-4": [
+  "task_4": [
    
   ],
 
   "all":[
    {
-    "task-1": [
-      {
-        "id":1,
-        "taskName":"Re Design your life",
-        "progress":80
-      },
-      {
-        "id":2,
-        "taskName":"changes your life",
-        "progress":90
-      }
-    ],
-    "task-2": [
-      {
-        "id":1,
-        "taskName":"Re Design your",
-        "progress":80
-      },
-      {
-        "id":2,
-        "taskName":"changes your life",
-        "progress":90
-      }
-    ],
-    "task-3": [
-      {
-        "id":1,
-        "taskName":"Re Design  life",
-        "progress":40
-      },
-      {
-        "id":2,
-        "taskName":"changes  life",
-        "progress":90
-      }
-    ],
-    "task-4": [
-     
-    ]
-   }
+   "id":1,
+   "group_task":1,
+   "taskName":"Re Design Life",
+   "progress":40
+   },
+   {
+    "id":2,
+    "group_task":1,
+    "taskName":"Re Design ",
+    "progress":60
+    },
+    {
+      "id":3,
+      "group_task":2,
+      "taskName":"Yuk Design ",
+      "progress":60
+    },
+    {
+      "id":4,
+      "group_task":2,
+      "taskName":"Yuk Bisa yuk ",
+      "progress":100
+    },
+    {
+      "id":5,
+      "group_task":3,
+      "taskName":"KAPAN JADINYA ",
+      "progress":60
+    }
   ]
   
 }

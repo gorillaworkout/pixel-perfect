@@ -9,7 +9,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Axios from 'axios'
 import { Button as ButtonSemantic, Popup,Grid } from 'semantic-ui-react'
 import ProgressBar from 'react-bootstrap/ProgressBar'
-import {apiUrl} from '../../Helpers/apiUrl'
+import { API_URL } from '../../Helpers/apiUrl';
 export default function Home(){
 
     const [modalTambah,setModalTambah]=useState(false)
@@ -22,6 +22,28 @@ export default function Home(){
     const [progressNum,setProgressNum]=useState(0)
 
     const [progressBar,setProgressBar]=useState(90)
+
+    const [loadingFetch,setLoadingFetch]=useState(true)
+
+    const [allData,setAllData]=useState([])
+
+
+
+    const fetchData=()=>{
+        Axios.get(`${API_URL}/all`)
+        .then((res)=>{
+            console.log(res.data)
+            
+            setAllData(res.data)
+        }).catch((err)=>{
+            console.log(err)
+        })
+        setLoadingFetch(false)
+    }
+    useEffect(()=>{
+        fetchData()
+    },[])
+
 
 
     const onSave=()=>{
@@ -74,6 +96,80 @@ export default function Home(){
     const toggle=()=>setModalTambah(false)
     const toggleEdit=()=>setEditTask(false)
     const toggleDelete=()=>setDeleteTask(false)
+
+
+
+    const renderItem=()=>{
+        const dataRender = allData
+
+        return dataRender.map((val,index)=>{
+            console.log(val.group_task === 1) 
+            if(val.group_task === 1){
+                return (
+                <div className="main-task">
+                <p id="name-item">{val.taskName}</p>
+                <div className="task-option">
+                    <div className="option-left">
+                        <div className="prog-bar">
+
+                            <ProgressBar now={val.progress} />
+                            {
+                                val.progress === 100?
+                                <AiFillCheckCircle id="icon"/>
+                                :
+                                <p>{val.progress}%</p>
+                            }
+                        </div>
+                    </div>
+                    
+                    <Popup
+                        trigger={
+                        <ButtonSemantic>
+                            <BsThreeDots id="icon-2"/>
+                        </ButtonSemantic>
+                        
+                        }
+                        flowing hoverable>
+                        <Grid centered divided columns={1} className="grid-modal">
+                            <Grid.Row className="grid-row-mod">
+                                <div className="row-mod-1">
+                                    <AiOutlineArrowRight className="icon-mod"/>
+                                </div>
+                                <div className="row-mod-2">
+                                    <p>Move Right</p>
+                                </div>
+                            </Grid.Row>
+                            <Grid.Row className="grid-row-mod">
+                            <div className="row-mod-1">
+                                <AiOutlineEdit className="icon-mod"/>
+                            </div>
+                            <div className="row-mod-2" onClick={()=>editTaskFunc(index)}>
+                                <p>Edit</p>                                       
+                            </div>
+                            </Grid.Row>
+                            <Grid.Row className="grid-row-mod">
+                            <div className="row-mod-1">
+                                <AiOutlineDelete className="icon-mod"/>
+                            </div>
+                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(index)}>
+                                <p>Delete</p>
+                            </div>
+                            </Grid.Row>
+
+                        </Grid>
+                        </Popup>        
+                </div>
+            </div>
+            )
+            }
+        })
+
+    }
+
+    if(loadingFetch){
+        <p>LOADING</p>
+    }
+
     return (
         <>
 
@@ -150,8 +246,8 @@ export default function Home(){
                             </div>
                                 <p id="name-2">JANUARY - MARCH</p>
                                 
-
-                            <div className="main-task">
+                                {renderItem()}
+                            {/* <div className="main-task">
                                 <p id="name-item">Re Designed Your life! no More Pills</p>
                                 <div className="task-option">
                                     <div className="option-left">
@@ -203,9 +299,9 @@ export default function Home(){
 
                                             </Grid>
                                             </Popup>
-                                    {/* <BsThreeDots id="icon-2"/> */}
+                                    
                                 </div>
-                            </div>
+                            </div> */}
                             
                             <div className="main-3" onClick={()=>createTask(1)}>
                                 <GrAddCircle id="icon-2"/>
@@ -253,7 +349,7 @@ export default function Home(){
                         </div>  
 
        
-
+                        {renderItem()}
                     </div>
                 </div>
 
