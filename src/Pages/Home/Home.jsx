@@ -40,22 +40,24 @@ export default function Home(){
     const fetchData=()=>{
         Axios.get(`${API_URL}/all`)
         .then((res)=>{
-            console.log(res.data)
+            // console.log(res.data)
             setAllData(res.data)
-        }).catch((err)=>{
-            console.log(err)
+        // }).catch((err)=>{
+        //     console.log(err)
         })
 
         Axios.get(`${API_URL}/task_1`)
         .then((res)=>{
             console.log(res.data, 'task 1')
+            console.log(res.data === null)
             setDataTask1(res.data)
-            console.log(res.data === [])
+            // console.log(res.data == [])
         }).catch((err)=>{
             console.log(err)
         })
         Axios.get(`${API_URL}/task_2`)
         .then((res)=>{
+            console.log(res.data === [])
             console.log(res.data)
             setDataTask2(res.data)
         }).catch((err)=>{
@@ -76,7 +78,7 @@ export default function Home(){
             console.log(err)
         })
 
-        setLoadingFetch(false)
+        // setLoadingFetch(false)
         
     }
     useEffect(()=>{
@@ -836,7 +838,7 @@ export default function Home(){
                             </div>
                                 <p id="name-2">JANUARY - MARCH</p>
                                 {
-                                    dataTask1 ?
+                                    dataTask1.length ?
                                     renderItem()
                                     :
                                     <input type="text" placeholder=" No Task Available" id="input-task" disabled />
@@ -854,11 +856,12 @@ export default function Home(){
                                 <p id="name-2">APRIL - JUNE</p>
                                 
                                 {
-                                    dataTask2 ?
+                                    dataTask2.length ?
                                     renderItem2()
                                     :
                                     <input type="text" placeholder=" No Task Available" id="input-task" disabled />
                                 }
+                              
                                 
 
                             <div className="main-3" onClick={()=>createTask(2)}>
@@ -874,12 +877,12 @@ export default function Home(){
                                 <p id="name-2">JULY - SEPTEMBER</p>
 
                                 {
-                                    dataTask3 ?
+                                    dataTask3.length ?
                                     renderItem3()
                                     :
                                     <input type="text" placeholder=" No Task Available" id="input-task" disabled />
                                 }
-                            
+                             
                             <div className="main-3" onClick={()=>createTask(3)}>
                                 <GrAddCircle id="icon-2"/>
                                 <p id="new-task">New Task</p>
@@ -892,7 +895,7 @@ export default function Home(){
                             </div>
                                 <p id="name-2">OCTOBER - DECEMBER</p>
                                 {
-                                    dataTask4?
+                                    dataTask4.length ?
                                     renderItem4()
                                     :
                                     <input type="text" placeholder=" No Task Available" id="input-task" disabled />
