@@ -35,6 +35,7 @@ export default function Home(){
     const [editNameTask,setEditNameTask]=useState('')
     const [editProgress,setEditProgress]=useState(0)
     const [indexEdit,setIndexEdit]=useState(0)
+    const [indexDelete,setIndexDelete]=useState(0)
 
 
     const fetchData=()=>{
@@ -198,7 +199,7 @@ export default function Home(){
             .then((res)=>{
                 Axios.get(`${API_URL}/task_3`)
                 .then((res)=>{
-                    setDataTask1(res.data)
+                    setDataTask3(res.data)
                 }).catch((err)=>{
                     console.log(err)
                 })
@@ -214,7 +215,7 @@ export default function Home(){
             .then((res)=>{
                 Axios.get(`${API_URL}/task_4`)
                 .then((res)=>{
-                    setDataTask1(res.data)
+                    setDataTask4(res.data)
                 }).catch((err)=>{
                     console.log(err)
                 })
@@ -237,21 +238,69 @@ export default function Home(){
         setIndexTask(id)
         setEditTask(true)
     }
-    const deleteTaskFunc=(id)=>{
+    const deleteTaskFunc=(id,index)=>{
         console.log(id)
+        setIndexDelete(index)
         setIndexTask(id)
         setDeleteTask(true)
     }
 
     const onDeleteEdit=()=>{
         console.log('delete berhasil')
-        console.log(indexTask)
+        console.log(indexTask, ' ini index task')
+   
+
         if(indexTask === 1 ){
-            console.log('line 174')
-            dataTask1.splice(indexTask,1)
-            console.log(dataTask1)
-            setDeleteTask(false)
+            Axios.delete(`${API_URL}/task_1/${indexDelete}`)
+            .then((res)=>{
+                console.log(res.data)
+                Axios.get(`${API_URL}/task_1`)
+                .then((res)=>{
+                    setDataTask1(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                // setDataTask1(res.data)
+            })
+        }else if (indexTask === 2){
+            Axios.delete(`${API_URL}/task_2/${indexDelete}`)
+            .then((res)=>{
+                console.log(res.data)
+                Axios.get(`${API_URL}/task_2`)
+                .then((res)=>{
+                    setDataTask2(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                // setDataTask1(res.data)
+            })
+
+        }else if (indexTask === 3){
+            Axios.delete(`${API_URL}/task_3/${indexDelete}`)
+            .then((res)=>{
+                console.log(res.data)
+                Axios.get(`${API_URL}/task_3`)
+                .then((res)=>{
+                    setDataTask3(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                // setDataTask1(res.data)
+            })
+        }else {
+            Axios.delete(`${API_URL}/task_4/${indexDelete}`)
+            .then((res)=>{
+                console.log(res.data)
+                Axios.get(`${API_URL}/task_4`)
+                .then((res)=>{
+                    setDataTask4(res.data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                // setDataTask1(res.data)
+            })
         }
+        setDeleteTask(false)
 
     }
 
@@ -539,7 +588,7 @@ export default function Home(){
                             <div className="row-mod-1">
                                 <AiOutlineEdit className="icon-mod"/>
                             </div>
-                            <div className="row-mod-2" onClick={()=>editTaskFunc(1,index+1)}>
+                            <div className="row-mod-2" onClick={()=>editTaskFunc(1,val.id)}>
                                 <p>Edit</p>                                       
                             </div>
                             </Grid.Row>
@@ -547,7 +596,7 @@ export default function Home(){
                             <div className="row-mod-1">
                                 <AiOutlineDelete className="icon-mod"/>
                             </div>
-                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(1)}>
+                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(1,val.id)}>
                                 <p>Delete</p>
                             </div>
                             </Grid.Row>
@@ -617,7 +666,7 @@ export default function Home(){
                             <div className="row-mod-1">
                                 <AiOutlineEdit className="icon-mod"/>
                             </div>
-                            <div className="row-mod-2" onClick={()=>editTaskFunc(2,index+1)}>
+                            <div className="row-mod-2" onClick={()=>editTaskFunc(2,val.id)}>
                                 <p>Edit</p>                                       
                             </div>
                             </Grid.Row>
@@ -625,7 +674,7 @@ export default function Home(){
                             <div className="row-mod-1">
                                 <AiOutlineDelete className="icon-mod"/>
                             </div>
-                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(2)}>
+                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(2,val.id)}>
                                 <p>Delete</p>
                             </div>
                             </Grid.Row>
@@ -693,7 +742,7 @@ export default function Home(){
                             <div className="row-mod-1">
                                 <AiOutlineEdit className="icon-mod"/>
                             </div>
-                            <div className="row-mod-2" onClick={()=>editTaskFunc(3,index+1)}>
+                            <div className="row-mod-2" onClick={()=>editTaskFunc(3,val.id)}>
                                 <p>Edit</p>                                       
                             </div>
                             </Grid.Row>
@@ -701,7 +750,7 @@ export default function Home(){
                             <div className="row-mod-1">
                                 <AiOutlineDelete className="icon-mod"/>
                             </div>
-                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(3)}>
+                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(3,val.id)}>
                                 <p>Delete</p>
                             </div>
                             </Grid.Row>
@@ -761,7 +810,7 @@ export default function Home(){
                             <div className="row-mod-1">
                                 <AiOutlineEdit className="icon-mod"/>
                             </div>
-                            <div className="row-mod-2" onClick={()=>editTaskFunc(3,index+1)}>
+                            <div className="row-mod-2" onClick={()=>editTaskFunc(4,val.id)}>
                                 <p>Edit</p>                                       
                             </div>
                             </Grid.Row>
@@ -769,7 +818,7 @@ export default function Home(){
                             <div className="row-mod-1">
                                 <AiOutlineDelete className="icon-mod"/>
                             </div>
-                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(3)}>
+                            <div className="row-mod-2" onClick={()=>deleteTaskFunc(4,val.id)}>
                                 <p>Delete</p>
                             </div>
                             </Grid.Row>

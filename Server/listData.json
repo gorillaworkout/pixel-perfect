@@ -1,19 +1,6 @@
 {
-  "task_1": [
-    {
-      "group_task": 2,
-      "taskName": "change it now",
-      "progress": "100",
-      "id": 1
-    }
-  ],
+  "task_1": [],
   "task_2": [
-    {
-      "group_task": 3,
-      "taskName": "testing update",
-      "progress": "100",
-      "id": 1
-    },
     {
       "group_task": 1,
       "taskName": "update",
@@ -22,12 +9,6 @@
     }
   ],
   "task_3": [
-    {
-      "group_task": 2,
-      "taskName": "design",
-      "progress": "20",
-      "id": 7
-    },
     {
       "group_task": 2,
       "taskName": "testing2",
@@ -50,15 +31,15 @@
   "task_4": [
     {
       "group_task": 3,
-      "taskName": "changes  life",
-      "progress": 90,
-      "id": 1
+      "taskName": "testing lagi",
+      "progress": "100",
+      "id": 2
     },
     {
-      "group_task": 3,
-      "taskName": "testing 3",
-      "progress": "90",
-      "id": 2
+      "group_task": 4,
+      "taskName": "task 4",
+      "progress": "100",
+      "id": 3
     }
   ],
   "all": [
