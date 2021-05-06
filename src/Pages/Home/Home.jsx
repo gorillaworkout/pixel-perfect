@@ -502,12 +502,18 @@ export default function Home(){
                     <div className="option-left">
                         <div className="prog-bar">
 
-                            <ProgressBar now={val.progress} />
-                            {
+                        {
                                 val.progress === '100'?
+                                <>
+                                <ProgressBar now={val.progress}  variant="success" />
                                 <AiFillCheckCircle id="icon"/>
+                                </>
                                 :
+                                <>
+
+                                <ProgressBar now={val.progress}  />
                                 <p>{val.progress}%</p>
+                                </>
                             }
                         </div>
                     </div>
@@ -566,12 +572,18 @@ export default function Home(){
                     <div className="option-left">
                         <div className="prog-bar">
 
-                            <ProgressBar now={val.progress} />
-                            {
+                        {
                                 val.progress === '100'?
+                                <>
+                                <ProgressBar now={val.progress}  variant="success" />
                                 <AiFillCheckCircle id="icon"/>
+                                </>
                                 :
+                                <>
+
+                                <ProgressBar now={val.progress}  />
                                 <p>{val.progress}%</p>
+                                </>
                             }
                         </div>
                     </div>
@@ -636,13 +648,18 @@ export default function Home(){
                 <div className="task-option">
                     <div className="option-left">
                         <div className="prog-bar">
-
-                            <ProgressBar now={val.progress} />
-                            {
+                        {
                                 val.progress === '100'?
+                                <>
+                                <ProgressBar now={val.progress}  variant="success" />
                                 <AiFillCheckCircle id="icon"/>
+                                </>
                                 :
+                                <>
+
+                                <ProgressBar now={val.progress}  />
                                 <p>{val.progress}%</p>
+                                </>
                             }
                         </div>
                     </div>
@@ -707,12 +724,18 @@ export default function Home(){
                     <div className="option-left">
                         <div className="prog-bar">
 
-                            <ProgressBar now={val.progress} />
                             {
                                 val.progress === '100'?
+                                <>
+                                <ProgressBar now={val.progress}  variant="success" />
                                 <AiFillCheckCircle id="icon"/>
+                                </>
                                 :
+                                <>
+
+                                <ProgressBar now={val.progress}  />
                                 <p>{val.progress}%</p>
+                                </>
                             }
                         </div>
                     </div>
