@@ -504,7 +504,7 @@ export default function Home(){
 
                             <ProgressBar now={val.progress} />
                             {
-                                val.progress === 100?
+                                val.progress === '100'?
                                 <AiFillCheckCircle id="icon"/>
                                 :
                                 <p>{val.progress}%</p>
@@ -568,7 +568,7 @@ export default function Home(){
 
                             <ProgressBar now={val.progress} />
                             {
-                                val.progress === 100?
+                                val.progress === '100'?
                                 <AiFillCheckCircle id="icon"/>
                                 :
                                 <p>{val.progress}%</p>
@@ -639,7 +639,7 @@ export default function Home(){
 
                             <ProgressBar now={val.progress} />
                             {
-                                val.progress === 100?
+                                val.progress === '100'?
                                 <AiFillCheckCircle id="icon"/>
                                 :
                                 <p>{val.progress}%</p>
@@ -709,7 +709,7 @@ export default function Home(){
 
                             <ProgressBar now={val.progress} />
                             {
-                                val.progress === 100?
+                                val.progress === '100'?
                                 <AiFillCheckCircle id="icon"/>
                                 :
                                 <p>{val.progress}%</p>

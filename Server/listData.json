@@ -2,8 +2,8 @@
   "task_1": [
     {
       "group_task": 2,
-      "taskName": "changes your life",
-      "progress": 90,
+      "taskName": "change it now",
+      "progress": "100",
       "id": 1
     }
   ],
@@ -13,6 +13,12 @@
       "taskName": "Re Design  life",
       "progress": 40,
       "id": 1
+    },
+    {
+      "group_task": 1,
+      "taskName": "update",
+      "progress": "100",
+      "id": 2
     }
   ],
   "task_3": [
@@ -33,6 +39,12 @@
       "taskName": "bayu",
       "progress": "10",
       "id": 9
+    },
+    {
+      "group_task": 1,
+      "taskName": "bayu",
+      "progress": "50",
+      "id": 10
     }
   ],
   "task_4": [
