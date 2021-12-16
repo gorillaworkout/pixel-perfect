@@ -651,7 +651,7 @@ export default function Home(){
                                     <AiOutlineArrowLeft className="icon-mod"/>
                                 </div>
                                 <div className="row-mod-2">
-                                    <p>Move Left</p>
+                                    <p>Move LEFT LEFT</p>
                                 </div>
                             </Grid.Row>
                             <Grid.Row className="grid-row-mod" onClick={()=>moveRight(2,val.id)}>
