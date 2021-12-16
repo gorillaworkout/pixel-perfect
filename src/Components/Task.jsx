@@ -8,7 +8,7 @@ export default function Task({arr}){
             <>
                 <div className="task-2">
                     <div className="task-name">
-                        <p id="name-1">Group Task 33332</p>
+                        <p id="name-1">Group Task testing</p>
                     </div>
                         <p id="name-2">APRIL - JUNE</p>
                         <input type="text" placeholder=" No Task Available" id="input-task" />
